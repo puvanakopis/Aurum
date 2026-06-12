@@ -1,0 +1,157 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-ivory: var(--ivory);
+  --color-charcoal: var(--charcoal);
+  --color-onyx: var(--onyx);
+
+  --font-display: "Cormorant Garamond", "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  --onyx: oklch(0.13 0 0);           /* #0a0a0a */
+  --charcoal: oklch(0.20 0.005 270); /* #1c1c1e */
+  --ivory: oklch(0.95 0.012 85);     /* #f5f0e8 */
+  --gold: oklch(0.74 0.12 85);       /* #c9a84c */
+  --gold-soft: oklch(0.62 0.10 85);
+
+  --background: var(--onyx);
+  --foreground: var(--ivory);
+  --card: var(--charcoal);
+  --card-foreground: var(--ivory);
+  --popover: var(--charcoal);
+  --popover-foreground: var(--ivory);
+  --primary: var(--gold);
+  --primary-foreground: var(--onyx);
+  --secondary: var(--charcoal);
+  --secondary-foreground: var(--ivory);
+  --muted: oklch(0.25 0.005 270);
+  --muted-foreground: oklch(0.65 0.01 85);
+  --accent: var(--gold);
+  --accent-foreground: var(--onyx);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: var(--ivory);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: var(--gold);
+}
+
+.dark {
+  --background: var(--onyx);
+  --foreground: var(--ivory);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--onyx);
+  }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-sans { font-family: var(--font-sans); }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .gold-rule {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+  }
+
+  .text-gold { color: var(--gold); }
+  .bg-onyx { background-color: var(--onyx); }
+  .bg-charcoal { background-color: var(--charcoal); }
+
+  .shimmer-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 235, 180, 0.18) 50%, transparent 70%);
+    transform: translateX(-100%);
+    animation: shimmer-sweep 2.4s ease-out 0.6s forwards;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  .float-slow {
+    animation: float-bob 5s ease-in-out infinite;
+  }
+}
+
+@keyframes shimmer-sweep {
+  to { transform: translateX(100%); }
+}
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* Hide native cursor when custom cursor is active on capable devices */
+@media (hover: hover) and (pointer: fine) {
+  body.aurum-cursor, body.aurum-cursor * {
+    cursor: none !important;
+  }
+}
